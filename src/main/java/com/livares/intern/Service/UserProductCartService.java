@@ -35,7 +35,7 @@ public class UserProductCartService {
 	        userProductCartRepository.deleteById(id);
 	    }
 
-	    // You can define more methods as needed based on your application requirements
+	   
 	}
 
 
