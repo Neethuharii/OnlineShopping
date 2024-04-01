@@ -1,8 +1,8 @@
 package com.livares.intern.Model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,13 +16,18 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class userProductCart {
-	
+public class User {
+ 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//UserProductCart - id, userId, productId
+	@GeneratedValue(strategy =jakarta.persistence.GenerationType.IDENTITY)
+	
+	
 	private Long id;
-	private Long userId;    //ForeignKey
-	private Long productId; //ForeignKey
-
+	private String firstName;
+	private String lastName;
+	  @Column(unique = true)
+	private String userName;
+	private String password;
+	
+	
 }

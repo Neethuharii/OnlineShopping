@@ -1,17 +1,18 @@
 package com.livares.intern.Model;
 
-import org.springframework.context.annotation.Description;
+import org.hibernate.annotations.ManyToAny;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 
 @Entity
 @Data
@@ -19,17 +20,19 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class product {
-
+public class UserProductCart {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//Product - id, name, desc, price, categoryId, img, quantity
+	//UserProductCart - id, userId, productId
 	private Long id;
-	private String name;
-	private String description;
-	private int categoryId;     //Foreignkey 
-	private int img;
-	private int quantity;
 	
-	
+	 @ManyToAny
+	  @JoinColumn(name = "user_id")
+	private User user;  
+	 
+	 @ManyToAny
+	    @JoinColumn(name = "product_id")
+	private Product product; 
+
 }
