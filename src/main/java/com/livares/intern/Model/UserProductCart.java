@@ -7,32 +7,28 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserProductCart {
+public class UserProductCart extends BaseEntity{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//UserProductCart - id, userId, productId
-	private Long id;
 	
-	 @ManyToAny
-	  @JoinColumn(name = "user_id")
+	@ManyToOne
+	@JoinColumn(name = "user_id",referencedColumnName = "id")
 	private User user;  
-	 
-	 @ManyToAny
-	    @JoinColumn(name = "product_id")
+	@OneToOne
+	@JoinColumn(name = "product_id",referencedColumnName = "id")
 	private Product product; 
 
 }

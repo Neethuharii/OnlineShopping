@@ -12,6 +12,7 @@ import com.livares.intern.Model.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 	
 	 @Query(value = "SELECT * FROM User", nativeQuery = true)
-	    List<User> findAllUsers();
+	   List<User> findAllUsers();
+	 
 
 }

@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.livares.intern.Model.Product;
-import com.livares.intern.Service.ProductService;
+import com.livares.intern.Service.ProductServiceImpl;
+import com.livares.intern.dto.ProductDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +15,7 @@ import java.util.Optional;
 public class ProductController {
 
     @Autowired
-    private ProductService productService;
+    private ProductServiceImpl productService;
 
     @GetMapping("/getAllProduct")
     public List<Product> getAllProducts() {
@@ -27,8 +28,8 @@ public class ProductController {
     }
 
     @PostMapping("/update")
-    public Product createProduct(@RequestBody Product product) {
-        return productService.saveProduct(product);
+    public Product createProduct(@RequestBody ProductDto productDto) {
+        return productService.saveProduct(productDto);
     }
 
     @DeleteMapping("/delete/{id}")

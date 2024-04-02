@@ -9,7 +9,7 @@ import com.livares.intern.Model.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Long>{
 
-    @Query(value = "SELECT * FROM Product", nativeQuery = true)
+    @Query(value = "SELECT * FROM product", nativeQuery = true)
     List<Product> findAllProducts();
 }
 

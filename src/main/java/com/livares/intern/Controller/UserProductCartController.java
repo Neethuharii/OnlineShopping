@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.livares.intern.Model.UserProductCart;
+import com.livares.intern.Service.UserProductCartServiceImpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +14,7 @@ import java.util.Optional;
 public class UserProductCartController {
 
     @Autowired
-    private UserProductCartController userProductCartService;
+    private UserProductCartServiceImpl userProductCartService;
 
     @GetMapping("/getAllProduct")
     public List<UserProductCart> getAllUserProductCarts() {

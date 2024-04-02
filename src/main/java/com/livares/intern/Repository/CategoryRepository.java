@@ -9,7 +9,7 @@ import com.livares.intern.Model.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Long>{
 	
-	@Query(value = "SELECT * FROM category", nativeQuery = true)
+	@Query(value = "SELECT *  FROM category", nativeQuery = true)
     List<Category> findAllCategories();
 	
 }

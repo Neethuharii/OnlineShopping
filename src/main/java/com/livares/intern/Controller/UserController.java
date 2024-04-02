@@ -14,33 +14,34 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.livares.intern.Model.User;
 import com.livares.intern.Service.UserService;
+import com.livares.intern.dto.UserDTO;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 	@Autowired
 	private UserService userService;
-	
-	
+
 	@GetMapping("/getAllUser")
-	public List<User>getAllUsers(){
+	public List<User> getAllUsers() {
 		return userService.getAllUsers();
-		
+
 	}
-	 @GetMapping("/getUserById/{id}")
-	    public Optional<User> getUserById(@PathVariable Long id) {
-	        return userService.getUserById(id);
-	    }
+	
 
-	    @PostMapping("/update")
-	    public User createUser(@RequestBody User user) {
-	        return userService.saveUser(user);
-	    }
+	@GetMapping("/getUserById/{id}")
+	public Optional<User> getUserById(@PathVariable Long id) {
+		return userService.getUserById(id);
+	}
 
-	    @DeleteMapping("/delete/{id}")
-	    public void deleteUser(@PathVariable Long id) {
-	        userService.deleteUser(id);
-	    }
-	    
+	@PostMapping("/update")
+	public User createUser(@RequestBody UserDTO userdDto) {
+		return userService.saveUser(userdDto);
+	}
+
+	@DeleteMapping("/delete/{id}")
+	public void deleteUser(@PathVariable Long id) {
+		userService.deleteUser(id);
+	}
 
 }
