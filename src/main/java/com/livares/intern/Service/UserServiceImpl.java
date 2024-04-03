@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findById(id);
 
 	}
+	//To register a user to a database
 
 	@Override
 	public String registerUser(UserDTO userDTO) {
@@ -47,6 +48,7 @@ public class UserServiceImpl implements UserService {
 		return "User Created!!";
 	}
 
+	//For delete the user
 	@Override
 	public void deleteUser(Long id) {
 		userRepository.deleteById(id);

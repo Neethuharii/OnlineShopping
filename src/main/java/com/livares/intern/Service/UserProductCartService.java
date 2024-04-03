@@ -15,5 +15,6 @@ public interface UserProductCartService {
     public UserProductCart saveUserProductCart(UserProductCart userProductCart);
 
     public void deleteUserProductCart(Long id);
+    public void addToCart(Long userId,Long productId);
 
 }

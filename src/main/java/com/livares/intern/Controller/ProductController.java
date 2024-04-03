@@ -19,34 +19,33 @@ import com.livares.intern.dto.ProductDto;
 @RequestMapping("/products")
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
+	@Autowired
+	private ProductService productService;
 
-    @GetMapping("/getAllProduct")
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
-       
-    }
-    
-    @GetMapping("/getAllProductsByCategory")
-    public List<Product> getAllProductsByCategory() {
-        return productService.getAllProductsByCategory();
-       
-    }
+	@GetMapping("/getAllProduct")
+	public List<Product> getAllProducts() {
+		return productService.getAllProducts();
 
-    @GetMapping("getProductById/{id}")
-    public Product getProductById(@PathVariable Long id) {
-        return productService.getProductById(id);
-    }
+	}
 
-    @PostMapping("/update")
-    public Product createProduct(@RequestBody ProductDto productDto) {
-        return productService.saveProduct(productDto);
-    }
+	@GetMapping("/getAllProductsByCategory")
+	public List<Product> getAllProductsByCategory() {
+		return productService.getAllProductsByCategory();
 
-    @DeleteMapping("/delete/{id}")
-    public void deleteProduct(@PathVariable Long id) {
-        productService.deleteProduct(id);
-    }
+	}
+
+	@GetMapping("getProductById/{id}")
+	public Product getProductById(@PathVariable Long id) {
+		return productService.getProductById(id);
+	}
+
+	@PostMapping("/update")
+	public Product createProduct(@RequestBody ProductDto productDto) {
+		return productService.saveProduct(productDto);
+	}
+
+	@DeleteMapping("/delete/{id}")
+	public void deleteProduct(@PathVariable Long id) {
+		productService.deleteProduct(id);
+	}
 }
-
