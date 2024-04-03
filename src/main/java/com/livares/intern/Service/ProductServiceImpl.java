@@ -1,13 +1,14 @@
 package com.livares.intern.Service;
 
 import java.util.List;
-import java.util.Optional;
 
+import org.hibernate.query.NativeQuery.ReturnableResultNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.livares.intern.Model.Category;
 import com.livares.intern.Model.Product;
-import com.livares.intern.Model.User;
+import com.livares.intern.Repository.CategoryRepository;
 import com.livares.intern.Repository.ProductRepository;
 import com.livares.intern.dto.ProductDto;
 
@@ -18,25 +19,34 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductRepository productRepository;
 	
+	@Autowired
+	private CategoryRepository categoryRepository;
 	@Override
 	public List<Product>getAllProducts(){
 		return productRepository.findAll();
 		
 	}
+	public List<Product>getAllProductsByCategory(){
+//		return productRepository.findAllProductsByCategory();
+		return null;
+	}
+	
+	
 	@Override
-	public Optional<Product>getProductById(Long id){
-		return productRepository.findById(id);
+	public Product getProductById(Long id){
+		return productRepository.findById(id).get();
 		
 	}
 	@Override
 	public Product saveProduct(ProductDto productDto) {
 		
+		Category category = categoryRepository.findById(productDto.getCategoryId()).get();
+		
 		Product newProduct = new Product();
 		newProduct.setName(productDto.getName());
 		newProduct.setDescription(productDto.getDescription());
-		newProduct.setCategory(productDto.getCategory());
 		newProduct.setImg(productDto.getImg());
-		newProduct.setImg(productDto.getImg());
+		newProduct.setCategory(category);
 		
 		return productRepository.save(newProduct);
 		

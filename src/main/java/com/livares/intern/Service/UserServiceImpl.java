@@ -16,10 +16,10 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
- 
+
 	@Override
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
@@ -32,19 +32,36 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User saveUser(UserDTO userDto) {
+	public String registerUser(UserDTO userDTO) {
+
+		if (userRepository.findByUsername(userDTO.getUsername()).isPresent()) {
+			return "username is  exists";
+		}
 		User newUser = new User();
-		newUser.setFirstName(userDto.getFirstName());
-		newUser.setLastName(userDto.getLastName());
-		newUser.setUsername(userDto.getUsername());
-		newUser.setPassword(userDto.getPassword());
-		
-		return userRepository.save(newUser);
+		newUser.setFirstName(userDTO.getFirstName());
+		newUser.setLastName(userDTO.getLastName());
+		newUser.setUsername(userDTO.getUsername());
+		newUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+
+		userRepository.save(newUser);
+		return "User Created!!";
 	}
 
 	@Override
 	public void deleteUser(Long id) {
 		userRepository.deleteById(id);
 	}
+
+	@Override
+	public User saveUser(UserDTO userDTO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+//	@Override
+//	public User saveUser(UserDTO userDTO) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }
