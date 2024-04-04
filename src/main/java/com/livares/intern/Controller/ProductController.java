@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +20,7 @@ import com.livares.intern.Model.Product;
 import com.livares.intern.Repository.ProductRepository;
 import com.livares.intern.Service.ProductService;
 import com.livares.intern.dto.ProductDto;
+import com.livares.intern.response.ResponseHandler;
 
 @RestController
 @RequestMapping("/products")
@@ -27,39 +30,58 @@ public class ProductController {
 	private ProductService productService;
 	@Autowired
 	private ProductRepository productRepository;
-
-	@GetMapping("/getAllProduct")
-	public List<Product> getAllProducts() {
-		return productService.getAllProducts();
-
-	}
-
-	@GetMapping("/getAllProductsByCategory")
-	public List<Product> getAllProductsByCategory() {
-		return productService.getAllProductsByCategory();
-
-	}
-
-	@GetMapping("getProductById/{id}")
-	public Product getProductById(@PathVariable Long id) {
-		return productService.getProductById(id);
-	}
-
-	@PostMapping("/update")
-	public Product createProduct(@RequestBody ProductDto productDto) {
-		return productService.saveProduct(productDto);
-	}
-
-	@DeleteMapping("/delete/{id}")
-	public void deleteProduct(@PathVariable Long id) {
-		productService.deleteProduct(id);
-	}
 	
-	 @GetMapping("/viewAllproductsByPage")
-	    public Page<Product> getAllProductsByPage(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-	        PageRequest pageRequest = PageRequest.of(page, size);
-	        return productRepository.findAll(pageRequest);
+	//get all product
+	
+	 @GetMapping("/getAllProduct")
+	    public ResponseEntity<Object> getAllProducts() {
+	        List<Product> products = productService.getAllProducts();
+	     
+	        return ResponseHandler.generateResponse("All Product", HttpStatus.OK, products);
 	    }
 	 
+	 //get all product by Category
+
+	 @GetMapping("/getAllProductsByCategory")
+	    public ResponseEntity<Object> getAllProductsByCategory() {
+	        List<Product> products = productService.getAllProductsByCategory();
+	      
+	        return ResponseHandler.generateResponse("All Product By Category", HttpStatus.OK, products);
+	    }
+	 
+	 //Get Product By Id
+	 
+	 @GetMapping("getProductById/{id}")
+	    public ResponseEntity<Object> getProductById(@PathVariable Long id) {
+	        Product product = productService.getProductById(id);
+	        if (product != null) {
+	            return ResponseHandler.generateResponse("product exist",HttpStatus.OK,product);
+	        } else {
+	            return  ResponseHandler.generateResponse("product is not exist",HttpStatus.OK,product);
+	        }
+	    }
+
+	 // create the product
+	 
+	 @PostMapping("/CREATED")
+	    public ResponseEntity<Object> createProduct(@RequestBody ProductDto productDto) {
+	        Product createdProduct = productService.saveProduct(productDto);
+	       // return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
+	        return ResponseHandler.generateResponse("created", HttpStatus.CREATED, createdProduct);
+	    }
+
+	 @DeleteMapping("/delete/{id}")
+	    public ResponseEntity<Object> deleteProduct(@PathVariable Long id) {
+	        productService.deleteProduct(id);
+	        return  ResponseHandler.generateResponse("delete Product",HttpStatus.NO_CONTENT, id);
+	    }
+	
+	 @GetMapping("/viewAllproductsByPage")
+	    public ResponseEntity<Object> getAllProductsByPage(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+	        PageRequest pageRequest = PageRequest.of(page, size);
+	        Page<Product> productPage = productRepository.findAll(pageRequest);
+	      
+	        return ResponseHandler.generateResponse("view product ",HttpStatus.OK,productPage);
+	    }
 	 
 }

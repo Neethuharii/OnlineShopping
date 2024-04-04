@@ -23,4 +23,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	List<Product> findByUser(@Param("userId") Long userId);
 	
 	Page<Product>findAll(Pageable pageable);
+	
 }

@@ -1,10 +1,14 @@
 package com.livares.intern.Controller;
 
+import org.aspectj.weaver.patterns.IScope;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.livares.intern.Model.Category;
 import com.livares.intern.Service.CategoryServiceImpl;
+import com.livares.intern.response.ResponseHandler;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,23 +21,33 @@ public class CategoryController {
     private CategoryServiceImpl categoryService;
 
     @GetMapping("/getAllCategory")
-    public List<Category> getAllCategories() {
-        return categoryService.getAllCategories();
+    public ResponseEntity<Object> getAllCategories() {
+        List<Category> categories = categoryService.getAllCategories();
+       
+        return ResponseHandler.generateResponse("All Category", HttpStatus.OK, categories);
     }
-
     @GetMapping("/getCategoryById/{id}")
-    public Optional<Category> getCategoryById(@PathVariable Long id) {
-        return categoryService.getCategoryById(id);
+    public ResponseEntity<Object> getCategoryById(@PathVariable Long id) {
+        Optional<Category> categoryOptional = categoryService.getCategoryById(id);
+        
+        if (categoryOptional.isPresent()) {
+            return ResponseHandler.generateResponse("category is present ", HttpStatus.OK, categoryOptional);
+        } else {
+        	return ResponseHandler.generateResponse("category is not present ", HttpStatus.OK, categoryOptional);
+        }
     }
 
-    @PostMapping("/update")
-    public Category createCategory(@RequestBody Category category) {
-        return categoryService.saveCategory(category);
+    @PostMapping("/create")
+    public ResponseEntity<Object> createCategory(@RequestBody Category category) {
+        Category createdCategory = categoryService.saveCategory(category);
+       
+        return ResponseHandler.generateResponse("Created", HttpStatus.OK, createdCategory);
     }
-
     @DeleteMapping("/delete/{id}")
-    public void deleteCategory(@PathVariable Long id) {
+    public ResponseEntity<Object> deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);
+     
+        return ResponseHandler.generateResponse("Deleted category", HttpStatus.NO_CONTENT, id);
     }
 }
 

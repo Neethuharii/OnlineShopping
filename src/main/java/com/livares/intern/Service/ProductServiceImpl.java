@@ -6,6 +6,8 @@ import org.hibernate.query.NativeQuery.ReturnableResultNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.livares.intern.Model.Category;
@@ -13,6 +15,7 @@ import com.livares.intern.Model.Product;
 import com.livares.intern.Repository.CategoryRepository;
 import com.livares.intern.Repository.ProductRepository;
 import com.livares.intern.dto.ProductDto;
+import com.livares.intern.response.ResponseHandler;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -59,8 +62,12 @@ public class ProductServiceImpl implements ProductService {
 		    
 	}
 	@Override
-	public void deleteProduct(Long id) {
-		productRepository.deleteById(id);
-	}
-
+	  public ResponseEntity<Object> deleteProduct(Long id) {
+        try {
+            productRepository.deleteById(id);
+            return ResponseHandler.generateResponse("deleted", HttpStatus.NO_CONTENT, id);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse("deleted", HttpStatus.NO_CONTENT, id);
+        }
+    }
 }
