@@ -46,5 +46,9 @@ public class UserProductCartController {
 	public List<Product> getViewCartById(@PathVariable Long id) {
 		return userProductCartService.viewCart(id);
 	}
+	@DeleteMapping("/removeFromCart/cart/{productId}")
+	public void removeFromCart(@PathVariable Long productId) {
+		userProductCartService.removeFromCart(productId);
+	}
 
 }

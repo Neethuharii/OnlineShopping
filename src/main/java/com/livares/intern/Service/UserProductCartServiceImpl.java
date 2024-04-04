@@ -58,4 +58,8 @@ public class UserProductCartServiceImpl implements UserProductCartService {
 		return productRepo.findByUser(userId);
 	}
 
+	//remove from cart
+	public void removeFromCart(Long productId) {
+		userProductCartRepository.removeById(productId);
+	}
 }

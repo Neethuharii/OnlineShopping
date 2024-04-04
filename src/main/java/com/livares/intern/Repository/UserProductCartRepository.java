@@ -11,4 +11,5 @@ import com.livares.intern.Model.UserProductCart;
 public interface UserProductCartRepository extends JpaRepository<UserProductCart, Long>{
 	
 	List<UserProductCart>findByUser(User user);
+	void removeById(long productId);
 }

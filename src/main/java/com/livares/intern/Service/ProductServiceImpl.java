@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.hibernate.query.NativeQuery.ReturnableResultNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.livares.intern.Model.Category;
@@ -49,7 +51,12 @@ public class ProductServiceImpl implements ProductService {
 		newProduct.setCategory(category);
 		
 		return productRepository.save(newProduct);
-		
+	}
+	
+		 public Page<Product> getAllProductsByPage(int page, int size) {
+		        PageRequest pageRequest = PageRequest.of(page, size);
+		        return productRepository.findAll(pageRequest);
+		    
 	}
 	@Override
 	public void deleteProduct(Long id) {
