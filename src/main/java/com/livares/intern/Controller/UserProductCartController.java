@@ -1,14 +1,14 @@
-package com.livares.intern.Controller;
+package com.livares.intern.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.livares.intern.Model.Product;
-import com.livares.intern.Model.UserProductCart;
-import com.livares.intern.Service.UserProductCartServiceImpl;
+import com.livares.intern.model.Product;
+import com.livares.intern.model.UserProductCart;
 import com.livares.intern.response.ResponseHandler;
+import com.livares.intern.service.implementation.UserProductCartServiceImpl;
 
 import java.util.List;
 import java.util.Optional;

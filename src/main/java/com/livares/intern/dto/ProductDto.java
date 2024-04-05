@@ -1,6 +1,6 @@
 package com.livares.intern.dto;
 
-import com.livares.intern.Model.Category;
+import com.livares.intern.model.Category;
 
 import lombok.Data;
 

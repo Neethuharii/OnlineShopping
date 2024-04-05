@@ -1,4 +1,4 @@
-package com.livares.intern.Controller;
+package com.livares.intern.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.livares.intern.Model.User;
-import com.livares.intern.Repository.UserRepository;
-import com.livares.intern.Service.UserService;
 import com.livares.intern.dto.UserDTO;
+import com.livares.intern.model.User;
+import com.livares.intern.repository.UserRepository;
 import com.livares.intern.response.ResponseHandler;
+import com.livares.intern.service.UserService;
 
 @RestController
 @RequestMapping("/users")

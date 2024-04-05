@@ -1,4 +1,4 @@
-package com.livares.intern.Repository;
+package com.livares.intern.repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,12 +8,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.livares.intern.Model.User;
 import com.livares.intern.dto.UserDTO;
+import com.livares.intern.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
+	
 	@Query(value = "SELECT * FROM User", nativeQuery = true)
 	List<User> findAllUsers();
 

@@ -1,4 +1,4 @@
-package com.livares.intern.Service;
+package com.livares.intern.service.implementation;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,11 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.livares.intern.Model.Product;
-import com.livares.intern.Model.User;
-import com.livares.intern.Model.UserProductCart;
-import com.livares.intern.Repository.ProductRepository;
-import com.livares.intern.Repository.UserProductCartRepository;
+import com.livares.intern.model.Product;
+import com.livares.intern.model.User;
+import com.livares.intern.model.UserProductCart;
+import com.livares.intern.repository.ProductRepository;
+import com.livares.intern.repository.UserProductCartRepository;
+import com.livares.intern.service.UserProductCartService;
 
 @Service
 public class UserProductCartServiceImpl implements UserProductCartService {
@@ -24,25 +25,11 @@ public class UserProductCartServiceImpl implements UserProductCartService {
 	ProductRepository productRepo;
 
 	@Override
-
-//	public List<UserProductCart> getAllUserProductCarts() {
-//		return userProductCartRepository.findAll();
-//	}
-//
-//	public Optional<UserProductCart> getUserProductCartById(Long id) {
-//		return userProductCartRepository.findById(id);
-//	}
-//
-//	public UserProductCart saveUserProductCart(UserProductCart userProductCart) {
-//		return userProductCartRepository.save(userProductCart);
-//	}
-
-//	public void deleteUserProductCart(Long id) {
-//		userProductCartRepository.deleteById(id);
-//	}
-	
-//Add To Cart
-	
+	/**=====================================================
+	 * 
+	 *  adding a product to the user's cart in the database.
+	 *  
+	 =========================================================*/
 	public ResponseEntity<Object> addToCart(Long userId, Long productId) {
         User user = new User();
         user.setId(userId);
@@ -58,7 +45,9 @@ public class UserProductCartServiceImpl implements UserProductCartService {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 	
-	//view Cart
+  /**==============================================================
+     * retrieving the products in the user's cart from the database.
+   ==================================================================*/
 	 public ResponseEntity<List<Product>> viewCart(Long userId) {
 	        List<Product> products = productRepo.findByUser(userId);
 	        if (!products.isEmpty()) {
@@ -68,7 +57,9 @@ public class UserProductCartServiceImpl implements UserProductCartService {
 	        }
 	    }
 
-	//remove from cart
+	/**-============================================================
+	 *  removing a product from the user's cart in the database.
+	 ==============================================================*/
 	  public ResponseEntity<Object> removeFromCart(Long productId) {
 	        try {
 	            userProductCartRepository.removeById(productId);
@@ -79,7 +70,6 @@ public class UserProductCartServiceImpl implements UserProductCartService {
 	    }
 	@Override
 	public void deleteUserProductCart(Long id) {
-		// TODO Auto-generated method stub
 		
 	}
 }

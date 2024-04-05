@@ -1,4 +1,4 @@
-package com.livares.intern.Controller;
+package com.livares.intern.controller;
 
 import java.util.List;
 
@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.livares.intern.Model.Product;
-import com.livares.intern.Repository.ProductRepository;
-import com.livares.intern.Service.ProductService;
 import com.livares.intern.dto.ProductDto;
+import com.livares.intern.model.Product;
+import com.livares.intern.repository.ProductRepository;
 import com.livares.intern.response.ResponseHandler;
+import com.livares.intern.service.ProductService;
 
 @RestController
 @RequestMapping("/products")

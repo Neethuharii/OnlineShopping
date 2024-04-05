@@ -1,4 +1,4 @@
-package com.livares.intern.Model;
+package com.livares.intern.model;
 
 //import java.util.Locale.Category;
 

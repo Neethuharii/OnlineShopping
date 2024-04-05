@@ -1,4 +1,4 @@
-package com.livares.intern.Service;
+package com.livares.intern.service.implementation;
 
 import java.util.List;
 
@@ -10,12 +10,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.livares.intern.Model.Category;
-import com.livares.intern.Model.Product;
-import com.livares.intern.Repository.CategoryRepository;
-import com.livares.intern.Repository.ProductRepository;
 import com.livares.intern.dto.ProductDto;
+import com.livares.intern.exception.CustomException;
+import com.livares.intern.exception.ErrorCode;
+import com.livares.intern.model.Category;
+import com.livares.intern.model.Product;
+import com.livares.intern.repository.CategoryRepository;
+import com.livares.intern.repository.ProductRepository;
 import com.livares.intern.response.ResponseHandler;
+import com.livares.intern.service.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -61,13 +64,12 @@ public class ProductServiceImpl implements ProductService {
 		        return productRepository.findAll(pageRequest);
 		    
 	}
-	@Override
-	  public ResponseEntity<Object> deleteProduct(Long id) {
-        try {
-            productRepository.deleteById(id);
-            return ResponseHandler.generateResponse("deleted", HttpStatus.NO_CONTENT, id);
-        } catch (Exception e) {
-            return ResponseHandler.generateResponse("deleted", HttpStatus.NO_CONTENT, id);
-        }
-    }
+		  public ResponseEntity<Object> deleteProduct(Long id) {
+		        try {
+		            productRepository.deleteById(id);
+		            return ResponseHandler.generateResponse("Deleted", HttpStatus.NO_CONTENT, id);
+		        } catch (Exception e) {
+		            throw new CustomException(ErrorCode.NOT_FOUND, "Failed to delete product with ID: " + id);
+		        }
+		    }
 }

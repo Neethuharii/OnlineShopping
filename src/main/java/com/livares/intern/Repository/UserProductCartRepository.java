@@ -1,4 +1,4 @@
-package com.livares.intern.Repository;
+package com.livares.intern.repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.livares.intern.Model.User;
-import com.livares.intern.Model.UserProductCart;
+import com.livares.intern.model.User;
+import com.livares.intern.model.UserProductCart;
 
 public interface UserProductCartRepository extends JpaRepository<UserProductCart, Long>{
 	

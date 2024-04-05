@@ -1,4 +1,4 @@
-package com.livares.intern.Controller;
+package com.livares.intern.controller;
 
 import org.aspectj.weaver.patterns.IScope;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,9 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.livares.intern.Model.Category;
-import com.livares.intern.Service.CategoryServiceImpl;
+import com.livares.intern.exception.CustomException;
+import com.livares.intern.exception.ErrorCode;
+import com.livares.intern.model.Category;
 import com.livares.intern.response.ResponseHandler;
+import com.livares.intern.service.implementation.CategoryServiceImpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,7 +49,7 @@ public class CategoryController {
     public ResponseEntity<Object> deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);
      
-        return ResponseHandler.generateResponse("Deleted category", HttpStatus.NO_CONTENT, id);
+        return ResponseHandler.generateResponse("Deleted category", HttpStatus.OK, id);
     }
 }
 
