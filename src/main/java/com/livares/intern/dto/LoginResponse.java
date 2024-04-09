@@ -1,6 +1,4 @@
-package com.livares.intern.response;
-
-import org.springframework.http.HttpStatus;
+package com.livares.intern.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,9 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomeResponse {
-	String message;
-	int status;
-	Object resObject;
+public class LoginResponse {
 
+    private String token;
+
+    private long expiresIn;
 }

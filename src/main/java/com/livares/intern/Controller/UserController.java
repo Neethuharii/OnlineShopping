@@ -14,10 +14,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.livares.intern.dto.LoginResponse;
 import com.livares.intern.dto.UserDTO;
+import com.livares.intern.dto.UserLoginDTO;
 import com.livares.intern.model.User;
 import com.livares.intern.repository.UserRepository;
-import com.livares.intern.response.ResponseHandler;
+import com.livares.intern.response.CustomResponse;
+import com.livares.intern.response.CustomResponseHandler;
+import com.livares.intern.service.AuthenticationService;
+import com.livares.intern.service.JwtService;
 import com.livares.intern.service.UserService;
 
 @RestController
@@ -27,18 +32,22 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private UserRepository userRepository;
+	
+	
+	
+
 
 	@GetMapping("/users")
     public ResponseEntity<Object> getAllUsers() {
         List<User> users = userRepository.findAll();
 //        return new ResponseEntity<>(users, HttpStatus.OK);
-        return ResponseHandler.generateResponse("All User", HttpStatus.OK, users);
+        return CustomResponseHandler.generateResponse("All User", HttpStatus.OK, users);
     }
 	
 	 @GetMapping("/getUserById/{id}")
 	 public ResponseEntity<Object> getUserById(@PathVariable Long id) {
 	        ResponseEntity<User> responseEntity = userService.getUserById(id);
-	        return ResponseHandler.generateResponse("All user by id", HttpStatus.OK,responseEntity);
+	        return CustomResponseHandler.generateResponse("All user by id", HttpStatus.OK,responseEntity);
 	    }
 
 
@@ -47,14 +56,14 @@ public class UserController {
     public ResponseEntity<Object> createUser(@RequestBody UserDTO userDTO) {
         User createdUser = userService.saveUser(userDTO);
        // return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
-        return ResponseHandler.generateResponse("Created the User", HttpStatus.CREATED, createdUser);
+        return CustomResponseHandler.generateResponse("Created the User", HttpStatus.CREATED, createdUser);
     }
 	//Delete a user by there id
 	
 	@DeleteMapping("delete/{id}")
     public ResponseEntity<Object> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
-        return ResponseHandler.generateResponse("Not Found", HttpStatus.NO_CONTENT,id);
+        return CustomResponseHandler.generateResponse("Not Found", HttpStatus.NO_CONTENT,id);
     }
 
 	
@@ -70,6 +79,6 @@ public class UserController {
 	            status = HttpStatus.CONFLICT;
 	        }
 
-	        return ResponseHandler.generateResponse("user is registered",HttpStatus.OK, status);
+	        return CustomResponseHandler.generateResponse("user is registered",HttpStatus.OK, status);
 	    }
 }

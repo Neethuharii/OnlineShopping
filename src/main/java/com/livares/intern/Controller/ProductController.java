@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.livares.intern.dto.ProductDto;
 import com.livares.intern.model.Product;
 import com.livares.intern.repository.ProductRepository;
-import com.livares.intern.response.ResponseHandler;
+import com.livares.intern.response.CustomResponseHandler;
 import com.livares.intern.service.ProductService;
 
 @RestController
@@ -36,8 +36,7 @@ public class ProductController {
 	 @GetMapping("/getAllProduct")
 	    public ResponseEntity<Object> getAllProducts() {
 	        List<Product> products = productService.getAllProducts();
-	     
-	        return ResponseHandler.generateResponse("All Product", HttpStatus.OK, products);
+	        return CustomResponseHandler.generateResponse("All Product", HttpStatus.OK, products);
 	    }
 	 
 	 //get all product by Category
@@ -46,7 +45,7 @@ public class ProductController {
 	    public ResponseEntity<Object> getAllProductsByCategory() {
 	        List<Product> products = productService.getAllProductsByCategory();
 	      
-	        return ResponseHandler.generateResponse("All Product By Category", HttpStatus.OK, products);
+	        return CustomResponseHandler.generateResponse("All Product By Category", HttpStatus.OK, products);
 	    }
 	 
 	 //Get Product By Id
@@ -55,9 +54,9 @@ public class ProductController {
 	    public ResponseEntity<Object> getProductById(@PathVariable Long id) {
 	        Product product = productService.getProductById(id);
 	        if (product != null) {
-	            return ResponseHandler.generateResponse("product exist",HttpStatus.OK,product);
+	            return CustomResponseHandler.generateResponse("product exist",HttpStatus.OK,product);
 	        } else {
-	            return  ResponseHandler.generateResponse("product is not exist",HttpStatus.OK,product);
+	            return  CustomResponseHandler.generateResponse("product is not exist",HttpStatus.OK,product);
 	        }
 	    }
 
@@ -67,13 +66,13 @@ public class ProductController {
 	    public ResponseEntity<Object> createProduct(@RequestBody ProductDto productDto) {
 	        Product createdProduct = productService.saveProduct(productDto);
 	       // return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
-	        return ResponseHandler.generateResponse("created", HttpStatus.CREATED, createdProduct);
+	        return CustomResponseHandler.generateResponse("created", HttpStatus.CREATED, createdProduct);
 	    }
 
 	 @DeleteMapping("/delete/{id}")
 	    public ResponseEntity<Object> deleteProduct(@PathVariable Long id) {
 	        productService.deleteProduct(id);
-	        return  ResponseHandler.generateResponse("delete Product",HttpStatus.NO_CONTENT, id);
+	        return  CustomResponseHandler.generateResponse("delete Product",HttpStatus.NO_CONTENT, id);
 	    }
 	
 	 @GetMapping("/viewAllproductsByPage")
@@ -81,7 +80,7 @@ public class ProductController {
 	        PageRequest pageRequest = PageRequest.of(page, size);
 	        Page<Product> productPage = productRepository.findAll(pageRequest);
 	      
-	        return ResponseHandler.generateResponse("view product ",HttpStatus.OK,productPage);
+	        return CustomResponseHandler.generateResponse("view product ",HttpStatus.OK,productPage);
 	    }
 	 
 }

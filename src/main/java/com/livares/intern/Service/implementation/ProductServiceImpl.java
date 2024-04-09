@@ -17,59 +17,61 @@ import com.livares.intern.model.Category;
 import com.livares.intern.model.Product;
 import com.livares.intern.repository.CategoryRepository;
 import com.livares.intern.repository.ProductRepository;
-import com.livares.intern.response.ResponseHandler;
+import com.livares.intern.response.CustomResponseHandler;
 import com.livares.intern.service.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService {
 
-	
 	@Autowired
 	private ProductRepository productRepository;
-	
+
 	@Autowired
 	private CategoryRepository categoryRepository;
+
 	@Override
-	public List<Product>getAllProducts(){
+	public List<Product> getAllProducts() {
 		return productRepository.findAll();
-		
+
 	}
-	public List<Product>getAllProductsByCategory(){
+
+	public List<Product> getAllProductsByCategory() {
 //		return productRepository.findAllProductsByCategory();
 		return null;
 	}
-	
-	
+
 	@Override
-	public Product getProductById(Long id){
+	public Product getProductById(Long id) {
 		return productRepository.findById(id).get();
-		
+
 	}
+
 	@Override
 	public Product saveProduct(ProductDto productDto) {
-		
+
 		Category category = categoryRepository.findById(productDto.getCategoryId()).get();
-		
+
 		Product newProduct = new Product();
 		newProduct.setName(productDto.getName());
 		newProduct.setDescription(productDto.getDescription());
 		newProduct.setImg(productDto.getImg());
 		newProduct.setCategory(category);
-		
+
 		return productRepository.save(newProduct);
 	}
-	
-		 public Page<Product> getAllProductsByPage(int page, int size) {
-		        PageRequest pageRequest = PageRequest.of(page, size);
-		        return productRepository.findAll(pageRequest);
-		    
+
+	public Page<Product> getAllProductsByPage(int page, int size) {
+		PageRequest pageRequest = PageRequest.of(page, size);
+		return productRepository.findAll(pageRequest);
+
 	}
-		  public ResponseEntity<Object> deleteProduct(Long id) {
-		        try {
-		            productRepository.deleteById(id);
-		            return ResponseHandler.generateResponse("Deleted", HttpStatus.NO_CONTENT, id);
-		        } catch (Exception e) {
-		            throw new CustomException(ErrorCode.NOT_FOUND, "Failed to delete product with ID: " + id);
-		        }
-		    }
+
+	public ResponseEntity<Object> deleteProduct(Long id) {
+		try {
+			productRepository.deleteById(id);
+			return CustomResponseHandler.generateResponse("Deleted", HttpStatus.NO_CONTENT, id);
+		} catch (Exception e) {
+			throw new CustomException(ErrorCode.NOT_FOUND, "Failed to delete product with ID: " + id);
+		}
+	}
 }

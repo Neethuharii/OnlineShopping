@@ -22,9 +22,12 @@ public class CustomUserDetailService implements UserDetailsService {
 
         Optional<User> user = userRepository.findByUsername(username);
         if (user.isPresent()) {
-
-            return User.builder().username(user.get().getUsername()).password(user.get().getPassword()).roles("USER")
-                    .build();
+        User users = user.get();
+        return org.springframework.security.core.userdetails.User.builder()
+            .username(users.getUsername())
+            .password(users.getPassword())
+            .roles("USER")
+            .build();
 
         } else {
             throw new UsernameNotFoundException("Not such user found!!");

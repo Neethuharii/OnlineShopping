@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import com.livares.intern.exception.CustomException;
 import com.livares.intern.exception.ErrorCode;
 import com.livares.intern.model.Category;
-import com.livares.intern.response.ResponseHandler;
+import com.livares.intern.response.CustomResponseHandler;
 import com.livares.intern.service.implementation.CategoryServiceImpl;
 
 import java.util.List;
@@ -26,16 +26,16 @@ public class CategoryController {
     public ResponseEntity<Object> getAllCategories() {
         List<Category> categories = categoryService.getAllCategories();
        
-        return ResponseHandler.generateResponse("All Category", HttpStatus.OK, categories);
+        return CustomResponseHandler.generateResponse("All Category", HttpStatus.OK, categories);
     }
     @GetMapping("/getCategoryById/{id}")
     public ResponseEntity<Object> getCategoryById(@PathVariable Long id) {
         Optional<Category> categoryOptional = categoryService.getCategoryById(id);
         
         if (categoryOptional.isPresent()) {
-            return ResponseHandler.generateResponse("category is present ", HttpStatus.OK, categoryOptional);
+            return CustomResponseHandler.generateResponse("category is present ", HttpStatus.OK, categoryOptional);
         } else {
-        	return ResponseHandler.generateResponse("category is not present ", HttpStatus.OK, categoryOptional);
+        	return CustomResponseHandler.generateResponse("category is not present ", HttpStatus.OK, categoryOptional);
         }
     }
 
@@ -43,13 +43,13 @@ public class CategoryController {
     public ResponseEntity<Object> createCategory(@RequestBody Category category) {
         Category createdCategory = categoryService.saveCategory(category);
        
-        return ResponseHandler.generateResponse("Created", HttpStatus.OK, createdCategory);
+        return CustomResponseHandler.generateResponse("Created", HttpStatus.OK, createdCategory);
     }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Object> deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);
      
-        return ResponseHandler.generateResponse("Deleted category", HttpStatus.OK, id);
+        return CustomResponseHandler.generateResponse("Deleted category", HttpStatus.OK, id);
     }
 }
 

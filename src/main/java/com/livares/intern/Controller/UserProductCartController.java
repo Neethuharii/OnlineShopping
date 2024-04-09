@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.livares.intern.model.Product;
 import com.livares.intern.model.UserProductCart;
-import com.livares.intern.response.ResponseHandler;
+import com.livares.intern.response.CustomResponseHandler;
 import com.livares.intern.service.implementation.UserProductCartServiceImpl;
 
 import java.util.List;
@@ -44,7 +44,7 @@ public class UserProductCartController {
 	 @PostMapping("/addtocart")
 	    public ResponseEntity<Object> addToCart(@RequestParam Long userId, @RequestParam Long productId) {
 	        userProductCartService.addToCart(userId, productId);
-	        return ResponseHandler.generateResponse("Product added to cart successfully", HttpStatus.CREATED, productId);
+	        return CustomResponseHandler.generateResponse("Product added to cart successfully", HttpStatus.CREATED, productId);
 	    }
 
 
@@ -52,7 +52,7 @@ public class UserProductCartController {
 	    public ResponseEntity<Object> getViewCartById(@PathVariable Long id) {
 	        ResponseEntity<List<Product>> response = userProductCartService.viewCart(id);
 	        
-	        return ResponseHandler.generateResponse("view cart by id",HttpStatus.OK, response);
+	        return CustomResponseHandler.generateResponse("view cart by id",HttpStatus.OK, response);
 	    }
 	 
 	   @DeleteMapping("/removeFromCart/{productId}")
